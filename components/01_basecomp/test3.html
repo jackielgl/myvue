@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <!--
+        1、组件使用v-model
+        自定义input组件：
+            将其 value 特性绑定到一个名叫 value 的 prop 上
+            在其 input 事件被触发时，将新的值通过自定义的 input 事件抛出
+
+        2、通过插槽分发内容
+            <slot></slot>
+    -->
+    <div id="custom-input-demo">
+        <custom-input v-model="searchText" @enter="tishi">content</custom-input>
+        <input v-model="searchText" @keyup.enter="tishi">
+    </div>
+    <script src="../js/vue.js"></script>
+    <script>
+       
+        Vue.component('custom-input',{
+            props:['value'],
+            template:`<div>
+                <slot></slot>
+                <input type="text" v-bind:value="value" 
+                    v-on:input="$emit('input',$event.target.value)" 
+                    v-on:keyup.enter="$emit('enter')" 
+                >
+            </div>
+            ` // 将新值通过自定义的input事件抛出 $emit 
+        });
+
+        new Vue({ 
+            el: "#custom-input-demo" ,
+            data:{
+                searchText: ''
+            },
+            methods:{
+                tishi:function(){
+                    alert(this.searchText);
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

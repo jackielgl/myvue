@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <!--
+        1、组件的data必须是一个函数
+        2、Prop 是你可以在组件上注册的一些自定义特性。当一个值传递给一个 prop 特性的时候，
+           它就变成了那个组件实例的一个属
+        3、模板中只允许一个跟元素
+    -->
+    <div id="components-demo">
+        <button-counter name="liang"></button-counter><br>
+        <button-counter name="guangli"></button-counter><br>
+        <button-counter name="zhu"></button-counter><br>
+        <p></p>
+        <blog-post title="My journey with Vue"></blog-post>
+        <blog-post title="Blogging with Vue"></blog-post>
+        <blog-post title="Why Vue is so fun"></blog-post>
+        <p>----------------------</p>
+        <blog-post v-for="post in posts" :key="post.id" :title="post.title"></blog-post>
+        <p>----------------------</p>
+        <blog-post2 v-for="post in posts" :post="post"></blog-post2>
+    </div>
+    <script src="../js/vue.js"></script>
+    <script>
+        // 注册全局组件
+        Vue.component('button-counter', {
+            props:['name'],
+            data: function () {
+                return {
+                    count: 0
+                }
+            },
+            template: '<button v-on:click="count++">You click {{name}} {{count}} times .</button>'
+        });
+        Vue.component('blog-post',{
+            props:['title'],
+            template:`
+            <h3>{{title}}</h3>
+            `
+        });
+        Vue.component('blog-post2',{
+            props:['post'],
+            template:`
+            <div class="blog-post2">
+            <h3>{{post.title}}</h3>
+            <div v-html="post.content"></div>
+            </div>
+            `
+        });
+
+        new Vue({ el: "#components-demo" ,
+                data:{
+                    posts:[
+                        {id:1,title:'中美关系',content:'中美关系。。。。。。。。。。。。。'},
+                        {id:2,title:'饿了么',content:'饿了么。。。。。。。。。。。。。'},
+                        {id:3,title:'今日头条',content:'今日头条。。。。。。。。。。。。。'}
+                    ]
+                }
+        });
+    </script>
+</body>
+
+</html>
