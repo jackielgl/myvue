@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<!--
+    1、列表显示
+        数组：v-for / index
+        对象：v-for / key
+    
+    2、列表的更新显示
+        删除item
+        替换item
+-->
+    <div id="app">
+        <h2>测试:v-for 遍历数组</h2>
+        <ul>
+            <li v-for="(p,index) in persons" :key="index">
+                {{index}} - {{p.name}} - {{p.age}} <button @click="deleteP(index)">删除</button>|<button @click="updateP(index,{name:'Tom',age:90})">更新</button>
+            </li>
+        </ul>
+        <h2>ces :v-for遍历对象</h2>
+        <ul>
+            <li v-for="(value,key) in persons[1]" :key="key">
+                {{key}} -- {{value}}
+            </li>
+        </ul>
+
+    </div>
+    <script src="../js/vue.js"></script>
+        <script type="text/javascript">
+        //vue本身只是监视了persons的改变，没有监视数组内部数据的改变
+        //vue重写了数组的一系列改变数组内部数据的方法（先调用原生方法，再更新界面）
+            new Vue({
+                el: '#app',
+                data: {
+                    persons:[
+                        {name:'张三',age:10},
+                        {name:'李四',age:20},
+                        {name:'王五',age:30},
+                        {name:'徐六',age:40}
+                    ]
+                },
+                methods:{
+                    deleteP(index){
+                        //删除数组中指定index处的值
+                        this.persons.splice(index,1);
+                    },
+                    updateP(index,newP){
+                        //this.persons[index] = newp; // 此方式并没有更改persons本身，而是更改persons指向数组的内容，不会引起更新
+                        
+                        this.persons.splice(index,1,newP);//splice方法经过重写，先调用原生的splice方法，在进行页面更新，具体可参考官方文档《数组更新检测》
+                    }
+                }
+            });
+        </script>
+</body>
+</body>
+</html>

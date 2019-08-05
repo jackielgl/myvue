@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<!--
+    1、绑定监听：
+        v-on:xxx="fun"
+        @xxx="fun"
+        @xxx="fun(参数)"
+        默认事件形参：event
+        隐含属性对象：$event
+    2、事件修饰符：
+        @keyup.keycode  事件代码
+        @keyup.keyname   事件名称
+
+-->
+    <div id="app">
+            <h2>1、绑定监听</h2>
+            <button @click="test1">test1</button>
+            <button @click="test2('abc')">test2</button>
+            <button @click="test3">test3</button>
+            <button @click="test4('abc',$event)">test4</button>
+            <h2>2、事件修饰符</h2>
+            <div style="width:200px;height:200px;background-color: #FF0000;" @click="test5">
+                    <div style="width:100px;height:100px;background-color: #0000FF;" @click.stop="test6"></div>
+            </div>
+            <a href="http://www.baidu.com" @click.prevent="test7">去百度</a>
+            <h2>3、按键修饰符</h2>
+            enter<input type="text" @keyup.13="test8"><br>
+            enter<input type="text" @keyup.enter="test8"><br>
+            space<input type="text" @keyup.space="test8"><br>
+
+    </div>
+    <script src="../js/vue.js"></script>
+        <script type="text/javascript">
+            new Vue({
+                el: '#app',
+                methods:{
+                    test1(){
+                        alert("ok");
+                    },
+                    test2(value){
+                        alert(value);
+                    },
+                    test3(event){
+                        alert(event.target.innerHTML);
+                    },
+                    test4(value,event){
+                        alert(value + ' ~~ ' + event.target.innerHTML);
+                    },
+                    test5(){
+                        
+                        alert('out');
+                    },
+                    test6(){
+                        //event.stopPropagation();
+                        alert('inner');
+                    },
+                    test7(){
+                        //event.preventDefault();
+                        alert("test7");
+                    },
+                    test8(event){
+                        alert(event.target.value)
+                    }
+                }
+            });
+        </script>
+</body>
+</body>
+</html>

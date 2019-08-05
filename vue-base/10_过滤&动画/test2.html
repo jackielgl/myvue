@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    /*显示/隐藏的过滤效果*/
+    .xxx-enter-active{
+        animation: xxx-in 1s;
+    }
+    .xxx-leave-active{
+        animation: xxx-in 1s reverse;
+    }
+
+    @keyframes xxx-in{
+        0% {
+            transform: scale(0)
+        }
+        50% {
+            transform: scale(1.5)
+        }
+        100% {
+            transform: scale(1)
+        }
+    }
+    
+</style>
+<body>
+    <div id="app">
+        <button @click="isShow=!isShow">toggle</button><br>
+        <transition name="xxx">
+            <p style="display: inline-block;" v-show="isShow">hello</p>
+        </transition>
+    </div>
+
+    <script src="../js/vue.js"></script>
+        <script type="text/javascript">
+            new Vue({
+                el: '#app',
+                data:{
+                    isShow:true
+                }
+               
+            });
+        </script>
+</body>
+</body>
+</html>

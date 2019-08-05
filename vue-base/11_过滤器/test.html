@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h2>显示格式化的日期时间</h2>
+        <p>{{date}}</p>
+        <p>完整日期时间(YYYY-MM-DD HH:mm:ss){{date | dateFilter('YYYY-MM-DD HH:mm:ss')}}</p>
+        <p>YYYY-MM-DD：{{date | dateFilter('YYYY-MM-DD')}}</p>
+        <p>HH:mm:ss:{{date | dateFilter('HH:mm:ss')}}</p>
+    </div>
+    <script src="../js/vue.js"></script>
+    <script src="../js/moment.js"></script>
+    <script>
+        Vue.filter('dateFilter',function(dateStr,formatStr='YYYY-MM-DD HH:mm:ss'){
+            return moment(dateStr).format(formatStr);
+        });
+        new Vue({
+            el: '#app',
+            data:{
+                date: new Date()
+            }
+        });
+    </script>
+</body>
+</html>

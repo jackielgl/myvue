@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    [v-cloak]{
+        display: none;
+    }
+</style>
+<body>
+    <!--
+        v-text:更新元素的textContent
+        v-html:更新元素的innerHTML
+        v-for:遍历数组、对象
+        v-show:如果为true，才显示，控制display的样式来显示/隐藏
+        v-if:如果为true，当前标签才会输出到页面
+        v-else:如果为false，当前标签才会输出到页面
+        v-model: 双向数据绑定
+        v-on: 绑定事件监听 ，可以省略写为 @
+        v-bind: 强制邦定解析表达式，可以省略v-bind
+        v-cloak: 防止闪现表达式，与css配合 [v-cloak]{display:none;}
+        ref: 为某个元素注册一个唯一标识，vue对象通过$ref属性访问这个元素对象
+
+
+    -->
+    <div id="app">
+        <p ref="msg">提示信息内容</p>
+        <button @click="tishi">提示</button>
+        <p>{{msg}}</p>
+        <p v-cloak>{{msg}}</p> <!--v-cloak 是vue的属性，当文档渲染完后，将不会存在，所以渲染前不会显示，渲染完显示内容-->
+    </div>
+
+    <script src="../js/vue.js"></script>
+    <script>
+        alert(1);
+        new Vue({
+            el: '#app',
+            data:{
+                msg :'尚硅谷'
+            },
+            methods:{
+                tishi:function(){
+                    alert(this.$refs.msg.textContent);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<!--
+    1、使用v-model（双向数据绑定）自动收集数据
+        text/textarea
+        radio
+        checkbox
+        select
+
+
+-->
+    <div id="app">
+        <form action="/xxx" @submit.prevent="handleSubmit">
+          用 户 名:<input type="text" v-model="username"> <br>
+          密　　码:<input type="password" v-model="password"> <br>
+          性　　别：<input type="radio" id="femal" value='女' v-model="sex">
+                <label for="femal">女</label>
+                <input type="radio" id="male" value='男' v-model="sex">
+                <label for="male">男</label>
+                <br>
+        爱　　好：
+              <input type="checkbox" id="basket" value="basket" v-model="likes">
+              <label for="basket">篮球</label>
+              <input type="checkbox" id="foot" value="foot" v-model="likes">
+              <label for="foot">足球</label>
+              <input type="checkbox" id="pingpang" value="pingpang" v-model="likes">
+              <label for="pingpang">乒乓球</label><br>
+        城    市：
+        <select v-model="cityId">
+            <option value="">未选择</option>
+            <option :value="value.id" v-for="(value,index) in allCities">
+                {{value.name}}
+            </option>
+        </select><br>
+        介    绍：
+        <textarea name="desc" id="desc" cols="30" rows="10" v-model="desc"></textarea>
+        <br><br>
+        <input type="submit" value="注册"></input>
+        </form>
+
+    </div>
+    <script src="../js/vue.js"></script>
+        <script type="text/javascript">
+            new Vue({
+                el: '#app',
+                data:{
+                    username:'',
+                    password:'',
+                    sex:'男',
+                    likes:['foot'],
+                    allCities:[{id:'1',name:'BJ'},{id:'2',name:'SH'},{id:'3',name:'GZ'}],
+                    cityId:'1',
+                    desc:''
+                },
+                methods:{
+                    handleSubmit(){
+                        console.log(this.username + "-" + this.password + "-" + this.sex +"-" + this.likes + "-" + this.cityId + "-" + this.desc)
+                    }
+                }
+            });
+        </script>
+</body>
+</body>
+</html>

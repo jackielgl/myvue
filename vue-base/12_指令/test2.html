@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    [v-cloak] {
+        display: none;
+    }
+</style>
+
+<body>
+    <!--
+        1、自定义指令
+
+    -->
+    <div id="app">
+        <p v-my-upper="msg"></p>
+        <p v-my-lower="msg"></p>
+    </div>
+    <p>------------------</p>
+    <div id="app2">
+        <p v-my-upper="msg"></p>
+        <p v-my-lower="msg"></p>
+    </div>
+    <script src="../js/vue.js"></script>
+    <script>
+        // 定义全局指令
+        //el: 指令属性所在的标签对象
+        //binding: 包含指令相关信息的数据对象
+        Vue.directive('my-upper', function (el, binding) {
+            return el.innerHTML = binding.value.toUpperCase();
+        });
+        new Vue({
+            el: '#app',
+            data: {
+                msg: 'this is a test'
+            },
+            directives: { // 注册局部指令 
+                'my-lower':function (el, binding) {
+                    return el.innerHTML = binding.value.toLowerCase();
+                }
+            }
+        });
+        new Vue({
+            el: '#app2',
+            data: {
+                msg: 'this is a test'
+            }
+        });
+    </script>
+</body>
+
+</html>
